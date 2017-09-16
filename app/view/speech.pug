@@ -1,0 +1,13 @@
+extends ./_master
+
+block append content
+    .container
+        p.title 百度语音播报示例
+        #Result.speech-contsiner
+            p 请1号患者刘曜魁到9号诊室就诊
+
+block append vendor
+    script(src='/resource/vendor/speech/jQuery.speech.js')
+
+block append script
+    script(src='/resource/script/speech.babel.js')

@@ -18,3 +18,10 @@
 
 [Mock.js](http://mockjs.com/)
 > 生成随机数据，拦截 Ajax 请求
+
+### speech.html 百度语音播报示例
+#### 参考链接
+[百度语音合成服务](http://yuyin.baidu.com/tts)
+
+
+
