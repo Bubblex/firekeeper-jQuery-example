@@ -1,0 +1,140 @@
+// 比较两个值是否相等
+@function eq($val1, $val2) {
+    // 两个值的类型必须一样
+    @if type-of($val1) != type-of($val2) {
+        @return false
+    }
+    // 如果两个值都是 number 类型，就比较两个值的单位以及值
+    @if type-of($val1) == number and type-of($val2) == number {
+        @return unit($val1) == unit($val2) and $val1 == $val2
+    }
+    // 如果两个值都是 list 类型，则遍历进行比较
+    @if type-of($val1) == list and type-of($val2) == list {
+        @if length($val1) != length($val2) {
+            @return false;
+        }
+        $result: true;
+        @for $i from 1 through length($val1) {
+            @if eq(nth($val1, $i), nth($val2, $i)) == false {
+                $result: false;
+                @return false;
+            }
+        }
+        @return $result
+    }
+    // 不满足以上条件，就使用默认的比较方法
+    @return $val1 == $val2;
+}
+
+@function clockhand($size) {
+    $top: n;
+    $right: n;
+    $bottom: n;
+    $left: n;
+
+    $len: length($size);
+
+    @if $len == 1 {
+        $top: nth($size, 1);
+        $right: $top;
+        $bottom: $top;
+        $left: $top;
+    }
+    @else if $len == 2 {
+        $top: nth($size, 1);
+        $right: nth($size, 2);
+        $bottom: $top;
+        $left: $right;
+    }
+    @else if $len == 3 {
+        $top: nth($size, 1);
+        $right: nth($size, 2);
+        $bottom: nth($size, 3);
+        $left: $right;
+    }
+    @else if $len == 4 {
+        $top: nth($size, 1);
+        $right: nth($size, 2);
+        $bottom: nth($size, 3);
+        $left: nth($size, 4);
+    }
+    @return (top: $top, right: $right, bottom: $bottom, left: $left);
+}
+
+    // 生成属性
+@mixin reduce($size, $prefix: "", $suffix: "") {
+    $result: clockhand($size);
+
+    $prefix: if($prefix == "", "", "#{$prefix}-");
+    $suffix: if($suffix == "", "", "-#{$suffix}");
+
+    $top: map-get($result, top);
+    $right: map-get($result, right);
+    $bottom: map-get($result, bottom);
+    $left: map-get($result, left);
+
+    @if $top != n {
+        #{$prefix}top: u($top);
+    }
+    @if $right != n {
+        #{$prefix}right: u($right);
+    }
+    @if $bottom != n {
+        #{$prefix}bottom: u($bottom);
+    }
+    @if $left != n {
+        #{$prefix}left: u($left);
+    }
+}
+
+// padding
+@mixin padding($size...) {
+    @include reduce($size, padding);
+}
+
+// margin
+@mixin margin($size...) {
+    @include reduce($size, margin);
+}
+
+// relative
+@mixin relative($size...) {
+    position: relative;
+    @include reduce($size);
+}
+
+// absolute
+@mixin absolute($size...) {
+    position: absolute;
+    @include reduce($size);
+}
+
+// fixed
+@mixin fixed($size...) {
+    position: fixed;
+    @include reduce($size);
+}
+
+// 设置尺寸
+// @param {Number} $width 宽度
+// @param {Number} $height 高度，该参数是可选的，如果不填，则宽高一致
+@mixin size($width, $height: _) {
+    width: u($width);
+    @if $height != n {
+        height: if($height == _, u($width), u($height));
+    }
+}
+
+%clearfix {
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+%ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

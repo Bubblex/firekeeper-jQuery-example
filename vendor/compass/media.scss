@@ -1,0 +1,10 @@
+// 创建一个移动端开发的 media，仅改变 html 的 font-size 值
+@mixin media($list: $media-list) {
+    @each $media in $list {
+        @media (min-width: px($media)) {
+            html {
+                font-size: px($media / $dev-size * 100);
+            }
+        }
+    }
+}

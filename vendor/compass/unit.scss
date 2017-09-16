@@ -1,0 +1,83 @@
+// 移除单位
+@function strip-unit($value) {
+    $result: ();
+    @if type-of($value) == number {
+        $result: $value / ($value * 0 + 1);
+    }
+    @else if type-of($value) == list {
+        @each $val in $value {
+            $result: append($result, strip-unit($val));
+        }
+    }
+    @else {
+        $result: $value;
+    }
+    @return $result;
+}
+
+// 设置单位为 px
+@function px($value) {
+    @if type-of($value) == number {
+        @if $value == 0 {
+            @return 0;
+        }
+        @else {
+            @return strip-unit($value) * 1px;
+        }
+    }
+    @else if type-of($value) == list {
+        $result: ();
+        @each $val in $value {
+            $result: append($result, px($val))
+        }
+        @return $result;
+    }
+    @else {
+        @return $value;
+    }
+}
+
+// 设置单位为 rem
+@function rem($value) {
+    @if type-of($value) == number {
+        @if $value == 0 {
+            @return 0;
+        }
+        @else if unit($value) == rem {
+            @return $value;
+        }
+        @else {
+            @return strip-unit($value) / $ratio / $root-size * 1rem;
+        }
+    }
+    @else if type-of($value) == list {
+        $result: ();
+        @each $val in $value {
+            $result: append($result, rem($val))
+        }
+        @return $result;
+    }
+    @else {
+        @return $value;
+    }
+}
+
+@function default-unit($value) {
+    @return call($default-unit, $value);
+}
+
+@function u($value) {
+    @if type-of($value) == number and unitless($value) {
+        @return default-unit($value);
+    }
+    @else if type-of($value) == list {
+        $result: ();
+        @each $val in $value {
+            $result: append($result, u($val))
+        }
+        @return $result;
+    }
+    @else {
+        @return $value;
+    }
+}

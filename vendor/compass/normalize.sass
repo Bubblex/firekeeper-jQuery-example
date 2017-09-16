@@ -1,0 +1,46 @@
+@mixin normalize
+    *
+        -webkit-tap-highlight-color: rgba(0,0,0,0)
+
+    *,
+    *:before,
+    *:after
+        box-sizing: border-box
+
+    html
+        font-size: px($root-size)
+
+    body
+        color: $font-color
+        margin: 0
+        font-size: px($font-size)
+        font-family: $font-family
+
+    h1, h2, h3, h4, h5, h6
+        margin-top: 0
+        margin-bottom: 0
+
+    p
+        margin-top: 0
+        margin-bottom: 0
+
+    a
+        text-decoration: none
+
+    img
+        vertical-align: middle
+
+    // @TODO 统一 input 在各浏览器的样式
+    input,
+    button,
+    textarea
+        outline: none
+        -webkit-appearance: none
+
+    textarea
+        resize: none
+
+    button
+        border: none
+        padding: 0
+        background-color: transparent

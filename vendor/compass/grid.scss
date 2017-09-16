@@ -1,0 +1,28 @@
+%col {
+    float: left
+}
+
+// 直接生成 24 栅格布局代码
+@mixin grid {
+    .row {
+        @extend %clearfix;
+    }
+    @for $i from 1 through 24 {
+        $result: percentage($i / 24);
+        .col-#{$i} {
+            @extend %col;
+            width: u($result);
+        }
+        .offset-#{$i} {
+            margin-left: u($result);
+        }
+    }
+}
+
+// 自定义栅格
+// 如果默认的 24 栅格无法满足需求，例如一行 7 列 9 列等，可以使用该方法
+// 该方法接收一个参数，意为将一行分成 n 等分
+@mixin make-grid($num) {
+    @extend %col;
+    width: percentage(1 / $num);
+}

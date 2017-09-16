@@ -1,0 +1,40 @@
+//- 页面标题
+- var title = 'firekeeper-simple'
+//- html 标签上的 class
+- var htmlClass = ''
+//- body 标签上的 class
+- var bodyClass = ''
+//- 页面编码
+- var charset = 'utf-8'
+//- 页面语言
+- var lang = 'zh-cn'
+//- 是否格式化手机号码
+- var formatTelephone = true
+
+block variables
+
+doctype html
+html(lang=lang, class=htmlClass)
+    head
+        title #{title}
+        block meta
+            meta(charset=charset)
+            meta(name='viewport', content='width=device-width, user-scalable=no')
+            meta(http-equiv='X-UA-Compatible', content='IE=Edge,chrome=1')
+            if !formatTelephone
+                meta(name='format-detection' content='telephone=no')
+        //- 引用样式
+        block style
+            link(rel='stylesheet' href='/resource/style/app.css')
+    body(class=bodyClass)
+        block before
+        block header
+        block content
+        block footer
+        block after
+        //- vendor level
+        block vendor
+            script(src='/resource/vendor/jquery/jquery-3.1.1.min.js')
+        //- page level
+        block script
+            script(src='/resource/script/app.babel.js')

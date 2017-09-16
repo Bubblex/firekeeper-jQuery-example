@@ -1,0 +1,10 @@
+@mixin make-table-layout($col, $width: 100%, $align: middle) {
+    width: u($width);
+    display: table;
+    .table-layout-inner {
+        width: percentage(1 / $col);
+        display: table-cell;
+        vertical-align: $align;
+        @content;
+    }
+}

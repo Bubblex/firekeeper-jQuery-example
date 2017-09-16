@@ -1,0 +1,13 @@
+# 编辑器
+.idea
+
+# npm
+node_modules
+npm-debug.log
+
+# 发布目录
+release
+
+# 压缩文件
+.rar
+.zip
