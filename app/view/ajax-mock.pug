@@ -1,0 +1,10 @@
+extends ./_master
+
+block append content
+    .login-example
+        input(placeholder='请输入账号' v-bind='Username')
+        input(placeholder='请输入密码' v-bind='Password')
+        a(v-bind='LoginBtn') 通过ajax请求数据
+
+block append script
+    script(src='/resource/script/ajax-mock.babel.js')
