@@ -102,6 +102,7 @@ async.register([
     {
         name: 'login',
         type: 'POST',
-        url: `account/login`
+        url: `account/login`,
+        processData: false,
     }
 ])

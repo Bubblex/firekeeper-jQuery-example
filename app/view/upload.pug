@@ -1,0 +1,12 @@
+extends ./_master
+
+block append content
+    .container
+        input(accept='image/jpg,image/jpeg,image/png,image/gif' type='file')
+        img
+
+block append vendor
+    script(src='/resource/vendor/speech/jQuery.speech.js')
+
+block append script
+    script(src='/resource/script/upload.babel.js')

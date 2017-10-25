@@ -1,18 +1,24 @@
+@import '../../../../../vendor/compass/index'
 
 $height: 50px
 
+body
+    background: #f0f0f0
+
 .login-example
-    padding: 300px
+    padding: 200px 0
     input,
     a
+        width: u(700)
         display: block
-        width: 100%
         height: $height
+        padding: 0 10px
+        margin-left: auto
+        margin-right: auto
         margin-bottom: 30px
         border: 1px solid #ccc
-        padding: 0 10px
     a
         cursor: pointer
+        background: #ccc
         text-align: center
-        background: #f0f0f0
         line-height: $height
