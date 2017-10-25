@@ -13,11 +13,7 @@
         var formdata = new FormData()
         formdata.append('name', file)
 
-        const data = {
-            formdata,
-        }
-
-        async.send('login', data, function(data) {
+        async.send('login', formdata, function(data) {
             console.log('发送清求...')
         })            
     })
